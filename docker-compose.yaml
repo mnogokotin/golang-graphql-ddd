@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+    go:
+        build:
+            dockerfile: docker/go/Dockerfile
+        command: ./app
+        env_file:
+            - docker/.env
+        depends_on:
+            - postgres
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+    postgres:
+        image: postgres:15.4-alpine3.18
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+        env_file:
+            - docker/postgres/.env.prod
+        ports:
+            - ${FORWARD_DATABASE_PORT:-5432}:5432
+        healthcheck:
+            test: ['CMD', 'pg_isready -U postgres']
+            interval: 3s
+            timeout: 3s
+            retries: 10
+    nginx:
+        build: docker/nginx
+        ports:
+            - ${APP_PORT:-8000}:80
+        depends_on:
+            - go
+volumes:
+    postgres_data:
