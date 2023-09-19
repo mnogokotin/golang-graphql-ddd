@@ -5,7 +5,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/mnogokotin/golang-graphql-ddd/graph"
+	"github.com/mnogokotin/golang-graphql-ddd/internal/graph"
 	"log"
 	"os"
 	"strings"
