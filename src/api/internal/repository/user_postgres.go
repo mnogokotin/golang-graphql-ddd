@@ -2,11 +2,10 @@ package repository
 
 import (
 	"context"
-	"github.com/golang-migrate/migrate/database/postgres"
 )
 
 type UsersRepo struct {
-	db *postgres.Postgres
+	db int8 //*postgres.Postgres
 }
 
 func NewUsersRepo(db *mongo.Database) *UsersRepo {

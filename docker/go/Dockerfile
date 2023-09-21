@@ -7,7 +7,11 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 # install gcc for hiredis
-RUN apk update
+RUN apk update \
+    && apk add curl \
+    && apk add make
+RUN curl -L https://github.com/golang-migrate/migrate/releases/download/v4.16.2/migrate.linux-amd64.tar.gz | tar xvz \
+    && cp migrate /bin/
 
 # copy project
 COPY ./docker/entrypoint.sh $APP_HOME

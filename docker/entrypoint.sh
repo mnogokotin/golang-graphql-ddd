@@ -1,5 +1,5 @@
 #!/bin/sh
 
-#python manage.py migrate
+make migrate-up
 
 exec "$@"
