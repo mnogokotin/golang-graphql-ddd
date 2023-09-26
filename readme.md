@@ -10,7 +10,7 @@
 docker compose -f docker-compose.yaml --env-file=docker/.env up -d --build
 ```
 
-Test it out at [http://localhost:810](http://localhost:810). No mounted
+Test it out at [http://localhost:822](http://localhost:810). No mounted
 folders. To apply changes, the image must be re-built.
 
 

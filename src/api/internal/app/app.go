@@ -36,7 +36,7 @@ func playgroundHandler() gin.HandlerFunc {
 func init() {
 	ginMode := os.Getenv("GIN_MODE")
 	gin.SetMode(ginMode)
-	if err := godotenv.Load(".env"); err != nil {
+	if err := godotenv.Load("/app/.env"); err != nil {
 		log.Fatal("Error loading .env file")
 	}
 }

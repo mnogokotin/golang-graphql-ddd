@@ -3,7 +3,6 @@ services:
     go:
         build:
             dockerfile: docker/go/Dockerfile
-        command: ./app
         env_file:
             - docker/.env
         depends_on:
