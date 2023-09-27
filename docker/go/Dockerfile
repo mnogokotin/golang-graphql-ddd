@@ -11,11 +11,9 @@ WORKDIR /app
 # build app
 RUN go build ./cmd/app
 
-# run migrations
-RUN make migrate-up
-
-# load fixtures
-RUN make fixtures-load
+# run migrations and load fixtures
+RUN make migrate-up \
+    && make fixtures-load
 
 
 FROM scratch
