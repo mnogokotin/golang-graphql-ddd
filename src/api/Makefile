@@ -5,7 +5,7 @@ help: ### display help screen
 .PHONY: help
 
 compose-up: ### run docker compose
-	docker compose up --build -d postgres rabbitmq && docker compose logs -f
+	docker compose --env-file=../../docker/.env up -d --build
 .PHONY: compose-up
 
 compose-down: ### down docker compose
