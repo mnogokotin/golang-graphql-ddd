@@ -1,0 +1,12 @@
+- id: 1
+  text: post1
+  user_id: 1
+- id: 2
+  text: post2
+  user_id: 1
+- id: 3
+  text: post3
+  user_id: 2
+- id: 4
+  text: post4
+  user_id: 2

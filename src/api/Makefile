@@ -37,5 +37,13 @@ migrate-create:  ### create new migration
 .PHONY: migrate-create
 
 migrate-up: ### migration up
-	migrate -path migrations -database 'postgres://$(DATABASE_USER):$(DATABASE_PASSWORD)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE_NAME)?sslmode=$(DATABASE_SSLMODE)' up
+	go run ./cmd/migrate/main.go
 .PHONY: migrate-up
+
+fixtures-load: ### load fixtures
+	go run ./cmd/fixtures_loader/main.go
+.PHONY: fixtures-load
+
+fixtures-dump: ### dump fixtures
+	go run ./cmd/fixtures_dumper/main.go
+.PHONY: fixtures-dump
