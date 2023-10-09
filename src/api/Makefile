@@ -16,13 +16,13 @@ linter-golangci: ### check by golangci linter
 	golangci-lint run
 .PHONY: linter-golangci
 
-test: ### run test
-	go test -v -cover -race ./internal/...
-.PHONY: test
+#test: ### run test
+#	go test -v -cover -race ./internal/...
+#.PHONY: test
 
-mock: ### run mockgen
-	mockgen -source ./internal/usecase/interfaces.go -package usecase_test > ./internal/usecase/mocks_test.go
-.PHONY: mock
+#mock: ### run mockgen
+#	mockgen -source ./internal/usecase/interfaces.go -package usecase_test > ./internal/usecase/mocks_test.go
+#.PHONY: mock
 
 migrate-create:  ### create new migration
 	migrate create -ext sql -dir migrations 'migrate_name'

@@ -2,45 +2,32 @@ package repository
 
 import (
 	"context"
+	"github.com/mnogokotin/golang-graphql-ddd/internal/domain"
+	"github.com/mnogokotin/golang-graphql-ddd/internal/graph/model"
+	"github.com/mnogokotin/golang-graphql-ddd/pkg/database/postgres"
 )
 
-type UsersRepo struct {
-	db int8 //*postgres.Postgres
+type UserRepo struct {
+	postgres *postgres.Postgres
 }
 
-func NewUsersRepo(db *mongo.Database) *UsersRepo {
-	return &UsersRepo{
-		db: db.Collection(offersCollection),
+func New(postgres *postgres.Postgres) *UserRepo {
+	return &UserRepo{
+		postgres: postgres,
 	}
 }
 
-func (r *UserRepo) GetHistory(ctx context.Context) ([]entity.User, error) {
-	sql, _, err := r.Builder.
-		Select("source, destination, original, translation").
-		From("history").
-		ToSql()
-	if err != nil {
-		return nil, err
+func (r *UserRepo) GetAll(ctx context.Context) ([]domain.User, error) {
+	defer r.postgres.Close()
+
+	var userModels []model.User
+	r.postgres.Db.Find(&userModels)
+
+	var userDomains []domain.User
+	for _, m := range userModels {
+		d := domain.User{ID: m.ID, Name: m.Name, Email: m.Email}
+		userDomains = append(userDomains, d)
 	}
 
-	rows, err := r.Pool.Query(ctx, sql)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-
-	entities := make([]entity.User, 0, _defaultEntityCap)
-
-	for rows.Next() {
-		e := entity.User{}
-
-		err = rows.Scan(&e.Source, &e.Destination, &e.Original, &e.User)
-		if err != nil {
-			return nil, err
-		}
-
-		entities = append(entities, e)
-	}
-
-	return entities, nil
+	return userDomains, nil
 }

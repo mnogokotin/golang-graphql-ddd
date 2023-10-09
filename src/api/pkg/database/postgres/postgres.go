@@ -1,19 +1,30 @@
 package postgres
 
 import (
-	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"os"
 )
 
 func GetConnectionUri() string {
-	return fmt.Sprintf(
-		"postgres://%s:%s@%s:%s/%s?sslmode=%s",
-		os.Getenv("DATABASE_USER"), os.Getenv("DATABASE_PASSWORD"), os.Getenv("DATABASE_HOST"), os.Getenv("DATABASE_PORT"), os.Getenv("DATABASE_NAME"), os.Getenv("DATABASE_SSLMODE"))
+	return os.Getenv("POSTGRES_CONNECTION_URI")
 }
 
-func GetDatabase() (*gorm.DB, error) {
-	db, err := gorm.Open("postgres", GetConnectionUri())
-	return db, err
+type Postgres struct {
+	Db *gorm.DB
+}
+
+func New(connectionUri string) (*Postgres, error) {
+	db, err := gorm.Open("postgres", connectionUri)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Postgres{
+		Db: db,
+	}, nil
+}
+
+func (p *Postgres) Close() {
+	p.Db.Close()
 }
