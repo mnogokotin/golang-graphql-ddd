@@ -17,6 +17,17 @@ func New(postgres *postgres.Postgres) *UserRepo {
 	}
 }
 
+func (r *UserRepo) Store(ctx context.Context, u domain.User) (domain.User, error) {
+	defer r.postgres.Close()
+
+	result := r.postgres.Db.Create(&u)
+	if result.Error != nil {
+		return domain.User{}, result.Error
+	}
+
+	return u, nil
+}
+
 func (r *UserRepo) GetAll(ctx context.Context) ([]domain.User, error) {
 	defer r.postgres.Close()
 
