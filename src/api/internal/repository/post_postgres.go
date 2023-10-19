@@ -7,36 +7,36 @@ import (
 	"github.com/mnogokotin/golang-graphql-ddd/pkg/database/postgres"
 )
 
-type UserRepo struct {
+type PostRepo struct {
 	postgres *postgres.Postgres
 }
 
-func NewUserRepo(postgres *postgres.Postgres) *UserRepo {
-	return &UserRepo{
+func NewPostRepo(postgres *postgres.Postgres) *PostRepo {
+	return &PostRepo{
 		postgres: postgres,
 	}
 }
 
-func (r *UserRepo) Store(ctx context.Context, u domain.User) (domain.User, error) {
+func (r *PostRepo) Store(ctx context.Context, u domain.Post) (domain.Post, error) {
 	defer r.postgres.Close()
 
 	result := r.postgres.Db.Create(&u)
 	if result.Error != nil {
-		return domain.User{}, result.Error
+		return domain.Post{}, result.Error
 	}
 
 	return u, nil
 }
 
-func (r *UserRepo) GetAll(ctx context.Context) ([]domain.User, error) {
+func (r *PostRepo) GetAll(ctx context.Context) ([]domain.Post, error) {
 	defer r.postgres.Close()
 
-	var userModels []model.User
+	var userModels []model.Post
 	r.postgres.Db.Find(&userModels)
 
-	var userDomains []domain.User
+	var userDomains []domain.Post
 	for _, m := range userModels {
-		d := domain.User{ID: m.ID, Name: m.Name, Email: m.Email}
+		d := domain.Post{ID: m.ID, Text: m.Text}
 		userDomains = append(userDomains, d)
 	}
 

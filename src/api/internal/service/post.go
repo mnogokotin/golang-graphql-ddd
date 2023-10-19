@@ -6,26 +6,26 @@ import (
 	"github.com/mnogokotin/golang-graphql-ddd/internal/repository"
 )
 
-type UserService struct {
-	r repository.UserRepoInterface
+type PostService struct {
+	r repository.PostRepoInterface
 }
 
-func NewUserService(r repository.UserRepoInterface) *UserService {
-	return &UserService{
+func NewPostService(r repository.PostRepoInterface) *PostService {
+	return &PostService{
 		r: r,
 	}
 }
 
-func (s *UserService) Create(ctx context.Context, u domain.User) (domain.User, error) {
+func (s *PostService) Create(ctx context.Context, u domain.Post) (domain.Post, error) {
 	userDomain, err := s.r.Store(ctx, u)
 	if err != nil {
-		return domain.User{}, err
+		return domain.Post{}, err
 	}
 
 	return userDomain, nil
 }
 
-func (s *UserService) GetAll(ctx context.Context) ([]domain.User, error) {
+func (s *PostService) GetAll(ctx context.Context) ([]domain.Post, error) {
 	users, err := s.r.GetAll(ctx)
 	if err != nil {
 		return nil, err

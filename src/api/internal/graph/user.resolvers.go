@@ -15,8 +15,8 @@ func createUserService() (*service.UserService, error) {
 		return nil, err
 	}
 
-	return service.New(
-		repository.New(pg),
+	return service.NewUserService(
+		repository.NewUserRepo(pg),
 	), nil
 }
 
