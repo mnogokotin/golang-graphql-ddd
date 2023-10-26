@@ -24,6 +24,12 @@ linter-golangci: ### check by golangci linter
 #	mockgen -source ./internal/usecase/interfaces.go -package usecase_test > ./internal/usecase/mocks_test.go
 #.PHONY: mock
 
+graph-generate:  ### graphql code generation (99designs/gqlgen package)
+	cd $(CURDIR)/internal/graph \
+    && go get github.com/99designs/gqlgen@latest \
+    && go generate
+.PHONY: graph-generate
+
 migrate-create:  ### create new migration
 	migrate create -ext sql -dir migrations 'migrate_name'
 .PHONY: migrate-create
