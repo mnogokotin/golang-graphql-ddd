@@ -2,21 +2,9 @@
 
 package model
 
-type Post struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
-	User *User  `json:"user"`
-}
-
 type PostInput struct {
-	Text string `json:"text"`
-	User string `json:"user"`
-}
-
-type User struct {
-	ID    string `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Text   string `json:"text"`
+	UserID int    `json:"userId"`
 }
 
 type UserInput struct {

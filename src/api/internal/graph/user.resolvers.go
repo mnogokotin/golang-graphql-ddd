@@ -20,7 +20,28 @@ func createUserService() (*service.UserService, error) {
 	), nil
 }
 
-// CreateUser is the resolver for the createUser field.
+func (r *userResolver) Posts(ctx context.Context, obj *model.User) ([]*model.Post, error) {
+	postService, err := createPostService()
+	if err != nil {
+		return nil, err
+	}
+
+	postDomains, err := postService.GetAll(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	var postModels []*model.Post
+	for _, d := range postDomains {
+		if d.UserID == obj.ID {
+			m := &model.Post{ID: d.ID, Text: d.Text, UserID: d.UserID}
+			postModels = append(postModels, m)
+		}
+	}
+
+	return postModels, nil
+}
+
 func (r *mutationResolver) CreateUser(ctx context.Context, input *model.UserInput) (*model.User, error) {
 	userService, err := createUserService()
 	if err != nil {
@@ -36,7 +57,6 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input *model.UserInpu
 	return &model.User{ID: d2.ID, Name: d2.Name, Email: d2.Email}, nil
 }
 
-// Users is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
 	userService, err := createUserService()
 	if err != nil {

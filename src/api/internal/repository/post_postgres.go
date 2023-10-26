@@ -31,14 +31,14 @@ func (r *PostRepo) Store(ctx context.Context, u domain.Post) (domain.Post, error
 func (r *PostRepo) GetAll(ctx context.Context) ([]domain.Post, error) {
 	defer r.postgres.Close()
 
-	var userModels []model.Post
-	r.postgres.Db.Find(&userModels)
+	var postModels []model.Post
+	r.postgres.Db.Find(&postModels)
+	var postDomains []domain.Post
 
-	var userDomains []domain.Post
-	for _, m := range userModels {
-		d := domain.Post{ID: m.ID, Text: m.Text}
-		userDomains = append(userDomains, d)
+	for _, m := range postModels {
+		d := domain.Post{ID: m.ID, Text: m.Text, UserID: m.UserID}
+		postDomains = append(postDomains, d)
 	}
 
-	return userDomains, nil
+	return postDomains, nil
 }

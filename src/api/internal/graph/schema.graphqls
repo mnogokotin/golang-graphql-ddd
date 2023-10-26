@@ -8,16 +8,17 @@ type User {
   id: ID!
   name: String!
   email: String!
+  posts: [Post]!
 }
 
 type Query {
-  posts: [Post!]!
-  users: [User!]!
+  posts: [Post]!
+  users: [User]!
 }
 
 input PostInput {
   text: String!
-  user: String!
+  userId: Int!
 }
 
 input UserInput {

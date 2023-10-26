@@ -17,19 +17,19 @@ func NewPostService(r repository.PostRepoInterface) *PostService {
 }
 
 func (s *PostService) Create(ctx context.Context, u domain.Post) (domain.Post, error) {
-	userDomain, err := s.r.Store(ctx, u)
+	postDomain, err := s.r.Store(ctx, u)
 	if err != nil {
 		return domain.Post{}, err
 	}
 
-	return userDomain, nil
+	return postDomain, nil
 }
 
 func (s *PostService) GetAll(ctx context.Context) ([]domain.Post, error) {
-	users, err := s.r.GetAll(ctx)
+	posts, err := s.r.GetAll(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return users, nil
+	return posts, nil
 }

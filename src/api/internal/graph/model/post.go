@@ -1,7 +1,8 @@
-package domain
+package model
 
 type Post struct {
 	ID     int    `json:"id"`
-	UserID int    `json:"user"`
 	Text   string `json:"text"`
+	UserID int    `json:"userId"`
+	User   *User  `json:"user"`
 }
