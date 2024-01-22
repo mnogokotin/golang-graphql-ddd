@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/joho/godotenv"
-	"github.com/mnogokotin/golang-graphql-ddd/pkg/database/postgres"
+	"github.com/mnogokotin/golang-packages/database/postgres"
 	"io"
 	"log"
 	"os"

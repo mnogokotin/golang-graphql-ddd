@@ -1,4 +1,4 @@
-# Sbubnom app
+# Golang Graphql DDD app
 
 ## Deployment
 

@@ -9,8 +9,9 @@ services:
             - postgres
         extra_hosts:
             - 'host.docker.internal:host-gateway'
+        restart: always
     postgres:
-        image: postgres:16.0-alpine3.18
+        image: postgres:16.1-alpine3.19
         volumes:
             - postgres_data:/var/lib/postgresql/data/
         env_file:
@@ -18,15 +19,17 @@ services:
         ports:
             - ${FORWARD_DATABASE_PORT:-5432}:5432
         healthcheck:
-            test: ['CMD', 'pg_isready -U postgres']
+            test: ['CMD-SHELL', 'pg_isready -p 5432']
             interval: 3s
             timeout: 3s
             retries: 10
+        restart: always
     nginx:
         build: docker/nginx
         ports:
             - ${APP_PORT:-8000}:80
         depends_on:
             - go
+        restart: always
 volumes:
     postgres_data:

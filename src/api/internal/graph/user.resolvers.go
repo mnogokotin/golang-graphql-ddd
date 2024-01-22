@@ -6,7 +6,7 @@ import (
 	"github.com/mnogokotin/golang-graphql-ddd/internal/graph/model"
 	"github.com/mnogokotin/golang-graphql-ddd/internal/repository"
 	"github.com/mnogokotin/golang-graphql-ddd/internal/service"
-	"github.com/mnogokotin/golang-graphql-ddd/pkg/database/postgres"
+	"github.com/mnogokotin/golang-packages/database/postgres"
 )
 
 func createUserService() (*service.UserService, error) {

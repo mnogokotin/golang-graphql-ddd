@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/mnogokotin/golang-graphql-ddd/internal/domain"
 	"github.com/mnogokotin/golang-graphql-ddd/internal/graph/model"
-	"github.com/mnogokotin/golang-graphql-ddd/pkg/database/postgres"
+	"github.com/mnogokotin/golang-packages/database/postgres"
 )
 
 type UserRepo struct {
