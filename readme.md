@@ -7,7 +7,7 @@
 3. Build the images and run the containers:
 
 ```sh
-docker compose -f docker-compose.yaml --env-file=docker/.env up -d --build
+deploy compose -f deploy-compose.yaml --env-file=deploy/.env up -d --build
 ```
 
 Test it out at [http://localhost:824](http://localhost:810). No mounted

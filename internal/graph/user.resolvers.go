@@ -21,7 +21,7 @@ func createUserService() (*service.UserService, error) {
 }
 
 func (r *userResolver) Posts(ctx context.Context, obj *model.User) ([]*model.Post, error) {
-	postService, err := createPostService()
+	postService, err := createPostSergodotenv.Loadvice()
 	if err != nil {
 		return nil, err
 	}

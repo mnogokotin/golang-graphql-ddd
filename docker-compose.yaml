@@ -2,20 +2,20 @@ version: '3.9'
 services:
     go:
         build:
-            dockerfile: docker/go/Dockerfile
+            dockerfile: deploy/go/Dockerfile
         env_file:
-            - docker/.env
+            - deploy/.env
         depends_on:
             - postgres
         extra_hosts:
-            - 'host.docker.internal:host-gateway'
+            - 'host.deploy.internal:host-gateway'
         restart: always
     postgres:
         image: postgres:16.1-alpine3.19
         volumes:
             - postgres_data:/var/lib/postgresql/data/
         env_file:
-            - docker/postgres/.env.prod
+            - deploy/postgres/.env.prod
         ports:
             - ${FORWARD_DATABASE_PORT:-5432}:5432
         healthcheck:
@@ -25,7 +25,7 @@ services:
             retries: 10
         restart: always
     nginx:
-        build: docker/nginx
+        build: deploy/nginx
         ports:
             - ${APP_PORT:-8000}:80
         depends_on:
